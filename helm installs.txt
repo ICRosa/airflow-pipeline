@@ -1,0 +1,41 @@
+# Adiciona o repositório Bitnami
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+# Instala *MySQL* com senha 'admin'
+helm upgrade --install mysql-db bitnami/mysql --set auth.rootPassword="admin"
+
+# Instala *Postgresql* com senha 'admin'
+helm upgrade --install postgresql-db bitnami/postgresql --set auth.postgresPassword="admin" 
+
+# Adiciona o repositório Oficial do Airflow
+helm repo add apache-airflow https://airflow.apache.org
+
+# Instala *Airflow* com parametros do arquivo 'values.yaml'
+helm upgrade --install airflow-pl apache-airflow/airflow -f airvalues/values.yaml
+
+---
+
+
+
+
+
+
+
+#Adicionais (opcionais)
+
+# Cria um 'kubernets secret' a partir de uma chave ssh para git sync em repositório privado.
+kubectl create secret generic <secret name> --from-file=gitSshKey=<sshkey>
+
+#Exemplo Cria uma string de conecção (no caso postgresql)
+echo -n "Server=<ip>; Port=5432; UserId=postgres; Passoword=admin;" | base64
+
+#Cria um 'kubernets secret' a partir de uma string de conecção
+kubectl create secret generic <secret name> --from-literal=connection=<conn string>
+
+
+#Gera uma 'fernet key' usada para segurança de encriptação no airflow
+python -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)"
+
+
+#exemplo de port forward para conectar com um serviço por fora do cluster 
+kubectl port-forward svc/airflow-pl-webserver 8080:8080 

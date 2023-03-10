@@ -1,0 +1,16 @@
+#Referencia
+https://devopscube.com/build-docker-image/
+
+#Exemplo de Dockerfile nesse diretório
+
+#Constroi a imagem
+docker build -t <nomedaimagem> <diretório da Dockerfile>
+
+#Faz login na conta DockerHub
+docker login -u <DockerHubUser> 
+
+#Concede uma Tag para permitir o push da imagem
+docker tag <image> <DockerHubUser>/<image>
+
+#Dá um push da imagem na conta logada
+docker push <DockerHubUser>/<image>

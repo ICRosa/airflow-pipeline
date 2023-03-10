@@ -1,0 +1,48 @@
+#set fernet key
+fernetkey: <fernet Key>
+
+#as degs não precisam persistir no disco se estivermos usando git sync
+dags:
+  persistence:
+    enabled: false
+
+#Configura git Sync
+  gitSync:
+    enabled: true
+    repo: <Git Repo> #https://github.com/<user>/repo.git
+    branch: <branch> # dev, main, other...
+    rev: HEAD
+    depth: 1
+    #sshKeySecret: airflow-git-ssh-secret
+    subPath: <your sub path> # "dags", "overdags/dags"
+
+#Configura um ingress permitindo acesso do computador sem nescessidade de port-forward
+ingress:
+  web:
+    enabled: true
+    hosts: [
+      name: "airflow.localhost"]
+  ingressClassName: "traefik"
+
+
+## Podemos usar o Postgresql lançado com o airflow como backend-database
+## Mas também podemos configurar um externo descomentando o trecho abaixo
+
+# postgresql:
+#   enabled: false
+# data:
+#   metadataConnection:
+#     user: <user> # postgres
+#     pass: <senha> # admin
+#     protocol: postgresql
+#     host: <ip de acesso> #"10.42.0.101"
+#     port: <porta> # por padrão 5432
+#     db: <database> # postgres 
+
+## Podemos configurar uma imagem contendo dependencias adicionais descomentando o trecho abaixo
+## Detalhes em 'docker image build.txt'
+
+# images:
+#   airflow: 
+#     repository: <DockerHubUser>/<Image>
+#     tag: latest
