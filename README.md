@@ -1,4 +1,4 @@
-# Airflow-pipeline-sample
+# Airflow-pipeline
 Pipeline de airflow criada com microserviços
 
 Aqui temos arquivos referentes a construção de um cluster kubernetes contendo o orquestrador airflow e os bancos de dados postgresql e mysql. Dentro do airflow temos uma dag de ETL simples entre os dois bancos e outra de coleta, conversão, transformação e analise dos dados.
